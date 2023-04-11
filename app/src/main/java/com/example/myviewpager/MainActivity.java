@@ -33,10 +33,10 @@ public class MainActivity extends AppCompatActivity {
 
         //查找布局文件用LayoutInflater.inflate
         LayoutInflater inflater =getLayoutInflater();
-        View view1 = inflater.inflate(R.layout.item01, null)
+        View view1 = inflater.inflate(R.layout.item01, null);
         View view2 = inflater.inflate(R.layout.item02, null);
-        View view3 = inflater.inflate(R.layout.item03, null)
-        View view4 = inflater.inflate(R.layout.item04, null)
+        View view3 = inflater.inflate(R.layout.item03, null);
+        View view4 = inflater.inflate(R.layout.item04, null);
 
         //将view装入数组
         pageview =new ArrayList<View>();
