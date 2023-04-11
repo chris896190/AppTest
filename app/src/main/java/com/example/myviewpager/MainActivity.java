@@ -33,10 +33,10 @@ public class MainActivity extends AppCompatActivity {
 
         //查找布局文件用LayoutInflater.inflate
         LayoutInflater inflater =getLayoutInflater();
-        View view1 = inflater.inflate(R.layout.item01, null)
-        View view2 = inflater.inflate(R.layout.item02, null)
-        View view3 = inflater.inflate(R.layout.item03, null)
-        View view4 = inflater.inflate(R.layout.item04, null)
+        View view1 = inflater.inflate(R.layout.item01, null);
+        View view2 = inflater.inflate(R.layout.item02, null);
+        View view3 = inflater.inflate(R.layout.item03, null);
+        View view4 = inflater.inflate(R.layout.item04, null);
 
         //将view装入数组
         pageview =new ArrayList<View>();
@@ -45,9 +45,32 @@ public class MainActivity extends AppCompatActivity {
         pageview.add(view3);
         pageview.add(view4);
 
-
         group = (ViewGroup)findViewById(R.id.viewGroup);
-
+        //新建一个线程自动循环播放图片，到最后一张后自动切换到第一张
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while(true){
+                  /*  try {
+                        Thread.sleep(3000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }*/
+                    Thread.sleep(3000);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            int currentItem = viewPager.getCurrentItem();
+                            if(currentItem == pageview.size()-1){
+                                viewPager.setCurrentItem(0);
+                            }else{
+                                viewPager.setCurrentItem(currentItem+1);
+                            }
+                        }
+                    });
+                }
+            }
+        }).start();
         //有多少张图就有多少个点点
         imageViews = new ImageView[pageview.size()];
         for(int i =0;i<pageview.size();i++){
