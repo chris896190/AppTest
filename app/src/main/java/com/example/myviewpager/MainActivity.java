@@ -45,9 +45,32 @@ public class MainActivity extends AppCompatActivity {
         pageview.add(view3);
         pageview.add(view4);
 
-
         group = (ViewGroup)findViewById(R.id.viewGroup);
-
+        //新建一个线程自动循环播放图片，到最后一张后自动切换到第一张
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while(true){
+                  /*  try {
+                        Thread.sleep(3000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }*/
+                    Thread.sleep(3000);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            int currentItem = viewPager.getCurrentItem();
+                            if(currentItem == pageview.size()-1){
+                                viewPager.setCurrentItem(0);
+                            }else{
+                                viewPager.setCurrentItem(currentItem+1);
+                            }
+                        }
+                    });
+                }
+            }
+        }).start();
         //有多少张图就有多少个点点
         imageViews = new ImageView[pageview.size()];
         for(int i =0;i<pageview.size();i++){
